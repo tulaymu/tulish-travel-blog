@@ -30,7 +30,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Copy assets folder
-  eleventyConfig.addPassthroughCopy("assets");
+eleventyConfig.addPassthroughCopy("assets");
 
   // Configure collections for content types
   // Gastronomic Itineraries

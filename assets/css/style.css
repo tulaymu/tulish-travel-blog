@@ -12,6 +12,7 @@
 
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Open Sans', sans-serif;
+    --font-amoresa: 'Amoresa', cursive;
 }
 
 /* Base Styles */
@@ -25,6 +26,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* ALL Headings will use the heading font by default */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--color-heading);
@@ -66,63 +68,67 @@ section:nth-of-type(even) {
 /* Header & Logo */
 header {
     background-color: #ffffff;
-    padding: 20px 25px;
+    padding: 15px 25px; /* Reduced vertical padding */
     border-bottom: 1px solid var(--color-border);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     display: flex;
-    justify-content: space-between; /* Puts logo on left, nav on right */
-    align-items: center; /* Vertically aligns logo and nav */
+    justify-content: space-between;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .site-logo {
-    flex-shrink: 0; /* Prevents logo from shrinking */
+    flex-shrink: 0;
 }
 
 .site-logo a {
+    display: block; /* Important for containing stacked elements */
+    text-decoration: none;
+    color: inherit;
+    line-height: 1; /* Reset line height for precise stacking */
+}
+
+.logo-and-tagline-container {
+    display: flex;
+    flex-direction: column; /* Stack logo and tagline vertically */
+    align-items: flex-start; /* Align logo and tagline to the left within their container */
+    gap: 0px; /* No gap as we'll use margin */
+}
+
+.header-logo-image {
+    height: 60px; /* Adjusted: Smaller to fit better in reduced header height */
+    width: auto;
     display: block;
-    line-height: 1;
-    color: var(--color-heading);
-    text-decoration: none; /* Ensure no underline on logo link */
+    margin-bottom: 0; /* Ensure no extra margin below logo */
 }
 
-.site-logo a:hover {
-    color: var(--color-heading); /* No color change on hover for logo as a whole */
-}
-
-.logo-main {
-    font-family: var(--font-heading);
-    font-size: 2.8em;
-    font-weight: 700;
-    display: block;
-    color: var(--color-primary);
-}
-
-.logo-tagline {
-    font-family: var(--font-body);
-    font-size: 1.1em;
-    font-weight: 400;
+.header-tagline {
+    font-family: var(--font-amoresa);
+    font-size: 1.2em; /* Reduced size to be smaller than nav links */
     color: var(--color-light-text);
-    display: block;
-    margin-top: 5px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1; /* Tighten line height */
+    margin-top: 5px; /* Add slight margin above tagline to separate from logo */
 }
 
 /* Main Navigation */
-.main-nav ul { /* Target the new class in base.njk */
+.main-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* Make navigation items flex items */
-    flex-wrap: wrap; /* Allow nav items to wrap on small screens */
-    justify-content: flex-end; /* Align items to the right */
+    display: flex;
+    flex-wrap: nowrap; /* IMPORTANT: Prevent wrapping */
+    justify-content: flex-end;
+    align-items: center; /* Vertically align nav items if they have different padding/line-height */
+    overflow-x: auto; /* Allow horizontal scrolling if truly too narrow */
+    -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
 }
 
 .main-nav ul li {
-    display: block; /* Change from inline-block to block inside flex */
-    margin-left: 30px; /* Spacing between nav items */
+    display: block;
+    margin-left: 15px; /* Reduced spacing between nav items */
+    flex-shrink: 0;
 }
 
 .main-nav ul li a {
@@ -130,28 +136,91 @@ header {
     color: var(--color-light-text);
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.9em;
+    font-size: 0.8em; /* Slightly smaller nav links */
     letter-spacing: 0.5px;
-    padding: 5px 0; /* Add vertical padding for clickable area */
-    display: block; /* Ensure padding applies well */
+    padding: 3px 0; /* Reduced vertical padding */
+    display: block;
+    white-space: nowrap;
 }
 
 .main-nav ul li a:hover {
     color: var(--color-primary);
 }
 
-/* Hero Slider Placeholder */
+/* Hero Slider / Image Gallery */
 .hero-slider {
-    background-color: var(--color-background);
-    padding: 120px 25px;
-    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
     margin-bottom: 80px;
     border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background-color: var(--color-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.hero-slider h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+.slider-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.slider-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slider-image.active {
+    opacity: 1;
+}
+
+/* Hero Slider / Image Gallery */
+/* ... (existing .hero-slider, .slider-container, .slider-image rules) ... */
+
+.hero-slider::before { /* Pseudo-element for overlay */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+    z-index: 5; /* Below text (z-index 10), above images */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Increased text shadow for better contrast */
+    padding: 20px;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3.8em;
+    margin-bottom: 10px;
+    color: #ffffff;
+    /* Remove redundant text-shadow here if defined above */
+}
+
+.hero-content p {
+    font-size: 1.4em;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: #ffffff;
+    /* Remove redundant text-shadow here if defined above */
 }
 
 /* Post Grid for Latest Content */
@@ -348,26 +417,50 @@ footer a:hover {
         margin-bottom: 15px;
     }
 
-    .logo-main {
-        font-size: 2.2em;
+    .logo-and-tagline-container {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center; /* Center horizontally when stacked on mobile */
     }
 
-    .logo-tagline {
-        font-size: 0.9em;
+    .header-logo-image {
+        height: 60px; /* Adjust logo size for smaller screens */
+        margin-bottom: 5px; /* Adjust space */
     }
 
-    .main-nav ul { /* Ensure this targets correctly */
+    .header-tagline {
+        font-size: 1.4em; /* Keep it readable */
+        line-height: 1.2;
+    }
+
+    .main-nav ul {
         justify-content: center;
-        margin-top: 0; /* Important: remove previous margin-top from nav ul */
+        margin-top: 0;
+        overflow-x: auto; /* Ensure horizontal scrolling on mobile if needed */
+        padding-bottom: 5px; /* Give some space for scrollbar */
     }
 
     .main-nav ul li {
-        margin: 0 8px;
-        margin-bottom: 5px; /* Add a little vertical spacing for stacked links */
+        margin: 0 5px; /* Tighter spacing on mobile */
+        margin-bottom: 5px;
+        flex-shrink: 0;
+    }
+
+    .main-nav ul li a {
+        font-size: 0.8em; /* Even smaller nav links on mobile */
+        padding: 3px 0;
     }
 
     .hero-slider {
-        padding: 80px 20px;
+        height: 400px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-content p {
+        font-size: 1.1em;
     }
 
     main {
