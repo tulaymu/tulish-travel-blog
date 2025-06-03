@@ -1,0 +1,57 @@
+---
+layout: base.njk
+---
+
+<article class="trip-package">
+    <h1>{{ title }}</h1>
+    <p class="meta-info">Duration: {{ duration }} | Group Size: {{ groupSize }}</p>
+
+    {% if gallery %}
+    <div class="trip-gallery">
+        <h2>Trip Photos</h2>
+        {% for image in gallery %}
+        <img src="{{ image }}" alt="Photo from {{ title }}">
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <section class="trip-overview">
+        <h2>Itinerary Overview</h2>
+        {{ content | safe }} {# This is where your Markdown content will go #}
+    </section>
+
+    <section class="trip-pricing">
+        <h3>Price: {{ price }}</h3>
+        {% if inclusions %}
+        <h4>Inclusions:</h4>
+        <ul>
+            {% for item in inclusions %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if exclusions %}
+        <h4>Exclusions:</h4>
+        <ul>
+            {% for item in exclusions %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
+
+    {% if bookingLink %}
+    <div class="book-now">
+        <a href="{{ bookingLink }}" target="_blank" rel="noopener noreferrer" class="button">Book Now!</a>
+    </div>
+    {% endif %}
+
+    {% if tags %}
+    <div class="post-tags">
+        Tags:
+        {% for tag in tags %}
+        <a href="/tags/{{ tag | slug }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</article>

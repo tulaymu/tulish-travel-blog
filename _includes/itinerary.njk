@@ -1,0 +1,48 @@
+---
+layout: base.njk
+---
+
+<article class="itinerary-post">
+    <h1>{{ title }}</h1>
+    <p class="meta-info">Location: {{ location }} | Duration: {{ duration }}</p>
+
+    {% if map %}
+    <div class="itinerary-map">
+        <h2>Map Overview</h2>
+        <img src="{{ map }}" alt="Map of {{ title }}">
+        <p>*(Placeholder for interactive map integration later)*</p>
+    </div>
+    {% endif %}
+
+    <section class="itinerary-breakdown">
+        <h2>Day-by-Day Breakdown</h2>
+        {{ content | safe }} {# This is where your Markdown content will go #}
+    </section>
+
+    {% if budget %}
+    <section class="itinerary-budget">
+        <h3>Budget Details</h3>
+        <p>{{ budget | safe }}</p>
+    </section>
+    {% endif %}
+
+    {% if tips %}
+    <section class="itinerary-tips">
+        <h3>Tips on Local Dishes & More</h3>
+        <ul>
+            {% for tip in tips %}
+            <li>{{ tip }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if tags %}
+    <div class="post-tags">
+        Tags:
+        {% for tag in tags %}
+        <a href="/tags/{{ tag | slug }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</article>

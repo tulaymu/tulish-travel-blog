@@ -1,5 +1,5 @@
 // .eleventy.js
-const { DateTime } = require("luxon"); // Add this line at the top
+const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
   // Add a filter to format dates
@@ -7,11 +7,42 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(format);
   });
 
-  // You can add custom configuration here.
-  // For now, let's keep it minimal.
+  // Add a filter for slugifying tags (used in the template for tag links)
+  eleventyConfig.addFilter("slug", (text) => {
+    return text.toString().toLowerCase()
+      .replace(/\s+/g, '-')        // Replace spaces with -
+      .replace(/[^\w-]+/g, '')     // Remove all non-word chars
+      .replace(/--+/g, '-')        // Replace multiple - with single -
+      .replace(/^-+/, '')          // Trim - from start of text
+      .replace(/-+$/, '');         // Trim - from end of text
+  });
+
 
   // Copy assets folder
   eleventyConfig.addPassthroughCopy("assets");
+
+  // Configure collections for content types
+  // Gastronomic Itineraries
+  eleventyConfig.addCollection("gastronomicItineraries", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("gastronomic-itineraries/*.md").sort((a, b) => {
+      return b.data.date - a.data.date; // Sort by date, newest first
+    });
+  });
+
+  // Restaurant Reviews
+  eleventyConfig.addCollection("restaurantReviews", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("restaurant-reviews/*.md").sort((a, b) => {
+      return b.data.date - a.data.date; // Sort by date, newest first
+    });
+  });
+
+  // Culture/Family Trips
+  eleventyConfig.addCollection("cultureFamilyTrips", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("culture-family-trips/*.md").sort((a, b) => {
+      return b.data.date - a.data.date; // Sort by date, newest first
+    });
+  });
+
 
   return {
     dir: {

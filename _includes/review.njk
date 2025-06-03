@@ -1,0 +1,43 @@
+---
+layout: base.njk
+---
+
+<article class="restaurant-review">
+    <h1>{{ title }}</h1>
+    <p class="meta-info">
+        Location: {{ location }} | Cuisine: {{ cuisine }} | Price Range: {{ priceRange }} | Rating: {{ rating }} Star
+    </p>
+
+    {% if gallery %}
+    <div class="review-gallery">
+        <h2>Photo Gallery</h2>
+        {% for image in gallery %}
+        <img src="{{ image }}" alt="Photo of {{ title }}">
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <section class="review-details">
+        <h2>Ambience</h2>
+        <p>{{ ambience | safe }}</p>
+
+        <h2>Must-Try Dishes</h2>
+        <ul>
+            {% for dish in mustTryDishes %}
+            <li>{{ dish }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>My Review</h2>
+        {{ content | safe }} {# This is where your Markdown content will go #}
+    </section>
+
+    {% if tags %}
+    <div class="post-tags">
+        Tags:
+        {% for tag in tags %}
+        <a href="/tags/{{ tag | slug }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</article>
