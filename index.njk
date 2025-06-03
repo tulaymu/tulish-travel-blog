@@ -22,7 +22,7 @@ layout: base.njk
                 {% if post.data.map %}
                 <img src="{{ post.data.map }}" alt="Map of {{ post.data.title }}" class="featured-image">
                 {% endif %}
-                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <p>{{ post.content | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
                 <a href="{{ post.url }}" class="read-more">Read More &rarr;</a>
             </article>
             {% endif %}
@@ -44,7 +44,7 @@ layout: base.njk
                 {% if post.data.gallery[0] %}
                 <img src="{{ post.data.gallery[0] }}" alt="Photo from {{ post.data.title }}" class="featured-image">
                 {% endif %}
-                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <p>{{ post.content | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
                 <a href="{{ post.url }}" class="read-more">Read More &rarr;</a>
             </article>
             {% endif %}
@@ -66,7 +66,7 @@ layout: base.njk
                 {% if post.data.gallery[0] %}
                 <img src="{{ post.data.gallery[0] }}" alt="Photo from {{ post.data.title }}" class="featured-image">
                 {% endif %}
-                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <p>{{ post.content | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
                 <a href="{{ post.url }}" class="read-more">View Trip &rarr;</a>
             </article>
             {% endif %}
