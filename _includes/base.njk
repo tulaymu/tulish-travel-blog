@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or "Tulish Travel Blog" }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <header>
-        <nav>
+        <div class="site-logo">
+            <a href="/">
+                <span class="logo-main">Tulish.co</span>
+            </a>
+        </div>
+        <nav class="main-nav">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/gastronomic-itineraries/">Gastronomic Itineraries</a></li>
@@ -25,6 +33,7 @@
     </main>
 
     <footer>
-        <p>&copy; {{ "2025" }} Tulish.co. All rights reserved.</p>
+        <p>&copy; {{ now | date("yyyy") }} Tulish.co. All rights reserved.</p>
+    </footer>
 </body>
 </html>
