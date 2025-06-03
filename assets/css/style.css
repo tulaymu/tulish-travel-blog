@@ -1,4 +1,32 @@
-/* assets/css/style.css */
+/* Universal CSS Reset for Box Model */
+html {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Basic Reset for margins and paddings */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove list styles on ul elements with a class */
+ul[class] {
+    list-style: none;
+}
+
+/* Set default line height for body */
+body {
+    line-height: 1.5; /* Slightly tighter default line-height */
+}
+
+/* Remove image default bottom margin */
+img {
+    display: block;
+    max-width: 100%;
+}
 
 /* CSS Custom Properties (Variables) */
 :root {
@@ -16,10 +44,10 @@
 }
 
 /* Base Styles */
+/* Note: body font-family, margin, line-height, color, background-color are set by the reset as well */
 body {
-    font-family: var(--font-body);
-    margin: 0;
-    line-height: 1.7;
+    font-family: var(--font-body); /* Re-apply body font after reset */
+    line-height: 1.7; /* Use slightly looser line-height for main content */
     color: var(--color-text);
     background-color: #ffffff;
     -webkit-font-smoothing: antialiased;
@@ -68,7 +96,7 @@ section:nth-of-type(even) {
 /* Header & Logo */
 header {
     background-color: #ffffff;
-    padding: 15px 25px; /* Reduced vertical padding */
+    padding: 10px 25px; /* Further Reduced vertical padding */
     border-bottom: 1px solid var(--color-border);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     display: flex;
@@ -83,10 +111,11 @@ header {
 }
 
 .site-logo a {
-    display: block; /* Important for containing stacked elements */
+    display: flex; /* Ensure flex is applied here */
+    align-items: center; /* Vertically align items inside this flex container */
     text-decoration: none;
     color: inherit;
-    line-height: 1; /* Reset line height for precise stacking */
+    line-height: 1;
 }
 
 .logo-and-tagline-container {
@@ -100,7 +129,7 @@ header {
     height: 60px; /* Adjusted: Smaller to fit better in reduced header height */
     width: auto;
     display: block;
-    margin-bottom: 0; /* Ensure no extra margin below logo */
+    margin-bottom: 3px; /* Add small space below logo for tagline */
 }
 
 .header-tagline {
@@ -109,7 +138,7 @@ header {
     color: var(--color-light-text);
     white-space: nowrap;
     line-height: 1; /* Tighten line height */
-    margin-top: 5px; /* Add slight margin above tagline to separate from logo */
+    margin-top: 0; /* Remove default margin from p or span */
 }
 
 /* Main Navigation */
@@ -185,17 +214,15 @@ header {
     opacity: 1;
 }
 
-/* Hero Slider / Image Gallery */
-/* ... (existing .hero-slider, .slider-container, .slider-image rules) ... */
-
-.hero-slider::before { /* Pseudo-element for overlay */
+/* Overlay for text readability on images */
+.hero-slider::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly darker overlay for better text contrast */
     z-index: 5; /* Below text (z-index 10), above images */
 }
 
@@ -203,16 +230,20 @@ header {
     position: relative;
     z-index: 10;
     color: #ffffff;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Increased text shadow for better contrast */
     padding: 20px;
     max-width: 800px;
+}
+
+/* Hero content headings/paragraphs will have strong text shadow */
+.hero-content h1,
+.hero-content p {
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.9); /* Stronger, darker text shadow for visibility */
 }
 
 .hero-content h1 {
     font-size: 3.8em;
     margin-bottom: 10px;
     color: #ffffff;
-    /* Remove redundant text-shadow here if defined above */
 }
 
 .hero-content p {
@@ -220,7 +251,6 @@ header {
     font-weight: 300;
     margin-bottom: 30px;
     color: #ffffff;
-    /* Remove redundant text-shadow here if defined above */
 }
 
 /* Post Grid for Latest Content */
