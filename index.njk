@@ -8,12 +8,76 @@ layout: base.njk
 
 <section class="hero-slider">
     <h2>High-resolution images from recent trips</h2>
-    <p>Placeholder for your hero slider content.</p>
-</section>
+    <p>Placeholder for your hero slider content. This will feature images from recent trips.</p>
+    </section>
 
-<section class="latest-posts">
-    <h2>Latest Gastronomic Adventures & Reviews</h2>
+<section class="latest-itineraries">
+    <h2>Latest Gastronomic Itineraries</h2>
     <div class="posts-grid">
-        <p>Placeholder for your latest blog posts.</p>
+        {% for post in collections.gastronomicItineraries | reverse %}
+            {% if loop.index <= 3 %} {# Display only the latest 3 #}
+            <article class="post-card">
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                <p class="meta">{{ post.data.location }} | {{ post.data.duration }}</p>
+                {% if post.data.map %}
+                <img src="{{ post.data.map }}" alt="Map of {{ post.data.title }}" class="featured-image">
+                {% endif %}
+                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <a href="{{ post.url }}" class="read-more">Read More &rarr;</a>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="all-posts-link">
+        <a href="/gastronomic-itineraries/">View All Itineraries &rarr;</a>
     </div>
 </section>
+
+<section class="latest-reviews">
+    <h2>Latest Restaurant Reviews</h2>
+    <div class="posts-grid">
+        {% for post in collections.restaurantReviews | reverse %}
+            {% if loop.index <= 3 %} {# Display only the latest 3 #}
+            <article class="post-card">
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                <p class="meta">{{ post.data.location }} | {{ post.data.cuisine }} | {{ post.data.rating }} Star</p>
+                {% if post.data.gallery[0] %}
+                <img src="{{ post.data.gallery[0] }}" alt="Photo from {{ post.data.title }}" class="featured-image">
+                {% endif %}
+                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <a href="{{ post.url }}" class="read-more">Read More &rarr;</a>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="all-posts-link">
+        <a href="/restaurant-reviews/">View All Reviews &rarr;</a>
+    </div>
+</section>
+
+<section class="latest-trips">
+    <h2>Latest Culture / Family Trips for Sale</h2>
+    <div class="posts-grid">
+        {% for post in collections.cultureFamilyTrips | reverse %}
+            {% if loop.index <= 3 %} {# Display only the latest 3 #}
+            <article class="post-card">
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                <p class="meta">{{ post.data.duration }} | {{ post.data.price }}</p>
+                {% if post.data.gallery[0] %}
+                <img src="{{ post.data.gallery[0] }}" alt="Photo from {{ post.data.title }}" class="featured-image">
+                {% endif %}
+                <p>{{ post.templateContent | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
+                <a href="{{ post.url }}" class="read-more">View Trip &rarr;</a>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="all-posts-link">
+        <a href="/culture-family-trips/">View All Trips &rarr;</a>
+    </div>
+</section>
+
+<section class="sidebar-footer-widgets">
+    <h2>Connect With Us</h2>
+    <p>Placeholder for social media links, About Me snippet, and newsletter sign-up form.</p>
+    </section>

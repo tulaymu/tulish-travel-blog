@@ -17,6 +17,17 @@ module.exports = function(eleventyConfig) {
       .replace(/-+$/, '');         // Trim - from end of text
   });
 
+  // Add a filter to truncate text
+  eleventyConfig.addFilter("truncate", (text, length, killwords, end) => {
+    if (text.length > length) {
+      text = text.substring(0, length);
+      if (killwords) {
+        text = text.substring(0, text.lastIndexOf(' '));
+      }
+      text += end != null ? end : '...';
+    }
+    return text;
+  });
 
   // Copy assets folder
   eleventyConfig.addPassthroughCopy("assets");

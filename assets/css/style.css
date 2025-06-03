@@ -54,3 +54,92 @@ footer {
 .latest-posts {
     margin-top: 40px;
 }
+/* assets/css/style.css */
+
+/* General section spacing */
+section {
+    margin-bottom: 60px;
+}
+
+/* Grid for latest posts */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.post-card {
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.post-card h3 a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.post-card .meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.post-card .featured-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    object-fit: cover; /* Ensures image covers the area */
+    height: 200px; /* Fixed height for consistency */
+}
+
+.post-card p {
+    flex-grow: 1; /* Allows paragraph to take available space */
+    margin-bottom: 15px;
+}
+
+.post-card .read-more {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    align-self: flex-start; /* Align button to the start of the flex item */
+}
+
+.post-card .read-more:hover {
+    background-color: #0056b3;
+}
+
+.all-posts-link {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.all-posts-link a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #007bff;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .posts-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+}
