@@ -21,14 +21,15 @@ layout: base.njk
         {% for post in collections.gastronomicItineraries | reverse %}
             {% if loop.index <= 3 %} {# Display only the latest 3 #}
             <article class="post-card">
-                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
-                <p class="meta">{{ post.data.location }} | {{ post.data.duration }}</p>
-                {% if post.data.map %}
-                <img src="{{ post.data.map }}" alt="Map of {{ post.data.title }}" class="featured-image">
-                {% endif %}
-                <p>{{ post.content | safe | truncate(150, true, '...') }}</p> {# Short excerpt #}
-                <a href="{{ post.url }}" class="read-more">Read More &rarr;</a>
-            </article>
+    <h3><a href="...">Paris 3-Day Gastronomic Itinerary</a></h3>
+    <p class="meta">Paris, France | 3 Days</p>
+    <img src="assets/images/paris-map-placeholder.jpg" alt="Map of Paris 3-Day Gastronomic Itinerary" class="featured-image">
+
+    <h2>Day 1: French Classics &amp; Marais Charm</h2> 
+    <p>Start your day with a classic French breakfast. Explore the Marais district, known for its...</p>
+
+    <a href="/gastronomic-itineraries/paris-3-day-itinerary/" class="read-more">Read More →</a>
+</article>
             {% endif %}
         {% endfor %}
     </div>
